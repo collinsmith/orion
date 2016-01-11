@@ -28,7 +28,7 @@ start() {
         echo -e "\e[00;32mStarting Ventrilo\e[00m"
         if [ `user_exists $VENTRILO_USER` = "1" ]
         then
-            /bin/su $VENTRILO_USER -c "$VENTRILO_HOME/ventrilo_srv -d"
+            /bin/su $VENTRILO_USER -c "$VENTRILO_HOME/ventrilo_srv -f$VENTRILO_HOME/ventrilo_srv -d"
         else
             echo -e "\e[00;31mVentrilo user $VENTRILO_USER does not exist. Exiting...\e[00m"
         fi
@@ -41,8 +41,8 @@ status(){
     pid=$(ventrilo_pid)
     if [ -n "$pid" ]
     then
-		echo -e "\e[00;32mVentrilo is running with pid: $pid\e[00m"
-		if [ `user_exists $VENTRILO_USER` = "1" ]
+	echo -e "\e[00;32mVentrilo is running with pid: $pid\e[00m"
+	if [ `user_exists $VENTRILO_USER` = "1" ]
         then
             /bin/su $VENTRILO_USER -c "$VENTRILO_HOME/ventrilo_status -c1 -t127.0.0.1"
         fi
